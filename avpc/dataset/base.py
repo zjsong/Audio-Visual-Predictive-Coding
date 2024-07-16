@@ -127,7 +127,7 @@ class BaseDataset(torchdata.Dataset):
             if nearest_resample:
                 audio_raw = audio_raw[::rate // self.audRate]
             else:
-                audio_raw = librosa.resample(audio_raw, rate, self.audRate)
+                audio_raw = librosa.resample(audio_raw, orig_sr=rate, target_sr=self.audRate)
 
         # audio clip
         start = int(start_timestamp * self.audRate)
@@ -146,7 +146,7 @@ class BaseDataset(torchdata.Dataset):
             else:
                 audio_raw = audio_raw[0, :]
         else:
-            audio_raw, rate = librosa.load(path, sr=None, mono=True)
+            audio_raw, rate = librosa.load(path, sr=self.audRate, mono=True)
 
         return audio_raw, rate
 
