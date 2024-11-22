@@ -180,6 +180,8 @@ def main_worker(gpu, args):
     # start pre-training
     for epoch in range(args.num_epoch_pt):
 
+        train_sampler_pt_solo.set_epoch(epoch)
+
         # pre-training with only solo data
         train_pt(netWrapper, loader_train_pt_solo, optimizer_pt, history_pt, epoch + 1, gpu, args)
 
@@ -214,6 +216,8 @@ def main_worker(gpu, args):
 
     # start training
     for epoch in range(args.num_epoch_ft):
+
+        train_sampler_ft_solo.set_epoch(epoch)
 
         train_ft(netWrapper, loader_train_ft_solo, optimizer_ft, history_ft, epoch + 1, gpu, args)
 
