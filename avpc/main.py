@@ -155,6 +155,8 @@ def main_worker(gpu, args):
     # start training
     for epoch in range(args.num_epoch):
 
+        train_sampler.set_epoch(epoch)
+
         # train for one epoch
         train(netWrapper, loader_train, optimizer, history, epoch + 1, gpu, args)
 
